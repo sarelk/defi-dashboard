@@ -80,7 +80,7 @@ const connectWallet = async () => {
           {currentAccount.loggedIn ?  (
             <UserMenu />
           ) : (
-            <button onClick={connectWallet} className="cta-button connect-wallet-button">
+            <button onClick={connectWallet} className="wallet-button">
               Connect to Wallet
             </button>
           )}

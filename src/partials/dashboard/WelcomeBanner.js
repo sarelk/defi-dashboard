@@ -1,6 +1,8 @@
 import React from 'react';
+import {useSelector} from 'react-redux'
 
 function WelcomeBanner() {
+  const currentAccount = useSelector(state => state.currentUser)
   return (
     <div className="relative bg-indigo-200 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
 
@@ -48,8 +50,12 @@ function WelcomeBanner() {
 
       {/* Content */}
       <div className="relative">
-        <h1 className="text-2xl md:text-3xl text-gray-800 font-bold mb-1">Good afternoon 👋</h1>
-        <p>Here are your assets balance today:</p>
+        <h1 className="text-2xl md:text-3xl text-gray-800 font-bold mb-1">Hello 👋</h1>
+        {currentAccount.loggedIn ? (
+            <p>Here is your assets balance today:</p>
+            ) : (
+              <p>To watch your assets balance today, please connect your wallet.</p>
+          )}
       </div>
 
     </div>

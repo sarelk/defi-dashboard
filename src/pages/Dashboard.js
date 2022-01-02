@@ -5,6 +5,7 @@ import Header from '../partials/Header';
 import WelcomeBanner from '../partials/dashboard/WelcomeBanner';
 import Assets from '../partials/dashboard/Assets';
 import {useSelector} from 'react-redux'
+import PlaceHolder from '../images/placeholder.jpg'
 
 function Dashboard() {
 
@@ -25,15 +26,15 @@ function Dashboard() {
 
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+            <WelcomeBanner />
           {currentAccount.loggedIn ? (
             <div>
-            <WelcomeBanner />
             <div className="grid grid-cols-12 gap-6">
               <Assets />
             </div>
             </div>
             ) : (
-            <img/>
+              <img src={PlaceHolder} alt="Connect Wallet" />
           )}
 
           </div>
