@@ -2,9 +2,6 @@
   "name": "mosaic-light-react",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "8.11.1"
-  },
   "dependencies": {
     "@craco/craco": "^6.4.0",
     "@tailwindcss/forms": "^0.4.0",
@@ -27,6 +24,7 @@
     "react-scripts": "4.0.3",
     "react-transition-group": "^4.4.2",
     "redux": "^4.1.2",
+    "request": "^2.88.2",
     "sass": "^1.43.4",
     "web-vitals": "^1.1.2"
   },
