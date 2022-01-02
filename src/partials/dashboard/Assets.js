@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
+import { request, GraphQLClient } from 'graphql-request'
 
 function Assets() {
   const currentAccount = useSelector(state => state.currentUser).user
 
   const query = `
-    query{
+  {
       ethereum(network: $ethereum) {
         address(address: {is: ${currentAccount}) {
           balances {
@@ -18,24 +19,16 @@ function Assets() {
           }
         }
       }
-  }
-  `;
-  const url = "https://graphql.bitquery.io";
-  const opts = {
-    method: "POST",
-    headers: {
+  }`;
+  const endpoint = "https://graphql.bitquery.io";
+  const headers = {
       "Content-Type": "application/json",
       "X-API-KEY": "BQYsYrM8vR0jzQlFLSmvNcTQU06f5Arq",
-      'Access-Control-Allow-Origin':'*',
+      "Access-Control-Allow-Origin": "http://localhost:3000",
       'Access-Control-Allow-Methods':'POST'
-    }
   };
-
-  fetch(url, opts)
-    .then(res => res.json())
-    .then(console.log)
-    .catch(console.error);
-
+  const client = new GraphQLClient(endpoint, { headers })
+  client.request(query, currentAccount).then((data) => console.log(data))
   return (
     <div className="col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
       <header className="px-5 py-4 border-b border-gray-100">
