@@ -4,49 +4,12 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import WelcomeBanner from '../partials/dashboard/WelcomeBanner';
 import Assets from '../partials/dashboard/Assets';
+import {useSelector} from 'react-redux'
 
 function Dashboard() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [currentAccount, setCurrentAccount] = useState("");
-
-  const checkIfWalletIsConnected = async () => {
-    const { ethereum } = window;
-
-    if (!ethereum) {
-        console.log("Make sure you have metamask!");
-        return;
-    } else {
-        console.log("We have the ethereum object", ethereum);
-    }
-
-    const accounts = await ethereum.request({ method: 'eth_accounts' });
-
-    if (accounts.length !== 0) {
-        const account = accounts[0];
-        console.log("Found an authorized account:", account);
-        setCurrentAccount(account)
-    } else {
-        console.log("No authorized account found")
-    }
-}
-
-const connectWallet = async () => {
-  try {
-    const { ethereum } = window;
-
-    if (!ethereum) {
-      alert("Get MetaMask!");
-      return;
-    }
-
-    const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-    console.log("Connected", accounts[0]);
-    setCurrentAccount(accounts[0]); 
-  } catch (error) {
-    console.log(error)
-  }
-}
+  const currentAccount = useSelector(state => state.currentUser)
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -62,15 +25,15 @@ const connectWallet = async () => {
 
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-          {currentAccount === "" ? (
-            <img/>
-          ) : (
+          {currentAccount.loggedIn ? (
             <div>
             <WelcomeBanner />
             <div className="grid grid-cols-12 gap-6">
               <Assets />
             </div>
             </div>
+            ) : (
+            <img/>
           )}
 
           </div>
